@@ -17,66 +17,60 @@ Complete url http://ec2-35-164-246-46.us-west-2.compute.amazonaws.com/
 2. Create a new User named 'grader' and grant 'grader' sudo permissions 
 https://www.digitalocean.com/community/tutorials/how-to-add-and-delete-users-on-an-ubuntu-14-04-vps
 
-1.	sudo adduser grader
-2.	 password is grader
-3.	Edit a new file under the sudoers.d directory
-4.	sudo nano /etc/sudoers.d/grader
-5.	add the following line to the file
-6.	grader ALL=(ALL:ALL) ALL
-7.	Save the file
+1. sudo adduser grader
+2. password is grader
+3. Edit a new file under the sudoers.d directory
+4. sudo nano /etc/sudoers.d/grader
+5. add the following line to the file
+6. grader ALL=(ALL:ALL) ALL
+7. Save the file
 5 - Update and upgrade all currently installed packages
 http://askubuntu.com/questions/94102/what-is-the-difference-between-apt-get-update-and-upgrade
 
-1.	Update packages
-2.	Sudo apt-get update
-3.	Install newest versions of packages
-4.	Sudo apt-get upgrade
+1. Update packages
+2. Sudo apt-get update
+3. Install newest versions of packages
+4. Sudo apt-get upgrade
 
 
 3. Create SSH key authentication for grader 
 
-1.	On the local machine Created public and private key pair for grader
-2.	Switch to user grader
-	su grader
-3.	move to the grader home directory
-4.	cd
-5.	create a new directory called .ssh
-6.	mkdir .ssh
-7.	create a new file called authorized_keys
-8.	touch .ssh/authorized_keys
-9.	move to the .ssh directory
-10.	cd .ssh
-11.	open the authorized_keys file
-12.	sudo nano authorized_keys
-13.	paste the public key you created on your local machine in the authorized_keys file
-14.	save and exit
-15.	move back to the home directory
-16.	cd
-17.	set permissions on the .ssh file so the owner can read/write/execute
-18.	chmod 700 .ssh
-19.	set permissions on the authorized_keys file so the owner can read and write
-20.	chmod 644 .ssh/authorized_keys
-21.	exit
-22.	open a new terminal and log in with user grader
+1.On the local machine Created public and private key pair for grader
+2. Switch to user grader
+3. su grader
+3. move to the grader home directory
+4. cd
+5. create a new directory called .ssh
+6. mkdir .ssh
+7. create a new file called authorized_keys
+8. touch .ssh/authorized_keys
+9. move to the .ssh directory
+10. cd .ssh
+11. open the authorized_keys file
+12. sudo nano authorized_keys
+13. paste the public key you created on your local machine in the authorized_keys file
+14. save and exit
+15. move back to the home directory
+16. cd
+17. set permissions on the .ssh file so the owner can read/write/execute
+18. chmod 700 .ssh
+19. set permissions on the authorized_keys file so the owner can read and write
+20. chmod 644 .ssh/authorized_keys
+21. exit
+22. open a new terminal and log in with user grader
 
-4 - Change the SSH port from 22 to 2200 and configure SSH access
+4. Change the SSH port from 22 to 2200 and configure SSH access
 http://askubuntu.com/questions/16650/create-a-new-ssh-user-on-ubuntu-server
 
-1.	    open the /etc/ssh/sshd_config file
-2.	sudo nano /etc/ssh/sshd_config
-3.	change the ssh port from 22 to 2200
-4.	change PermitRootLogin from without-password to PermitRootLogin no
-5.	sudo service ssh reload
+1. open the /etc/ssh/sshd_config file
+2. sudo nano /etc/ssh/sshd_config
+3. change the ssh port from 22 to 2200
+4. change PermitRootLogin from without-password to PermitRootLogin no
+5. sudo service ssh reload
 
-
-
-6.	Remove the “unable to resolve host” warning
-http://askubuntu.com/questions/59458/error-message-when-i-run-sudo-unable-to-resolve-host-none
-
-6.	Configure the uncomplicated firewall to only allow incoming connections for SSH, HTTP, and NTP
+5. Configure the uncomplicated firewall to only allow incoming connections for SSH, HTTP, and NTP
 https://help.ubuntu.com/community/UFW
-
-1.	Turn on UFW
+1. Turn on UFW
 2.	sudo ufw enable
 3.	Allow incoming traffic on port 2200(SSH)
 4.	sudo ufw allow 2200/tcp
@@ -85,8 +79,8 @@ https://help.ubuntu.com/community/UFW
 7.	Allow incoming traffic on port 123/udp
 8.	sudo ufw allow 123/udp
 9.	Verify the firewall status
-10.	sudo ufw status verbose
-7.          Configure firewall to monitor for repeated unsuccessful login attempts and ban attackers
+10.	 sudo ufw status verbose
+   6.  Configure firewall to monitor for repeated unsuccessful login attempts and ban attackers
 1.	$ sudo apt-get install fail2ban
 2.	 send the alerts to the admin user:
 3.	 $ sudo apt-get install sendmail
@@ -96,22 +90,22 @@ https://help.ubuntu.com/community/UFW
 7.	$ sudo nano /etc/fail2ban/jail.local. 
 8.	Set the destemail field to admin user's email address.
 
-8.	Update currently installed packages
+7. Update currently installed packages
 
 1.	sudo apt-get update
 2.	sudo apt-get upgrade
 	
-   9.  Configure the local timezone to UTC
+   8. Configure the local timezone to UTC
 1. sudo dpkg-reconfigure tzdata
 2. scroll to the bottom of the Continents list and select None of the Above; in the second list, select UTC 
 
-10. Autmatically manage updates
+   9. Autmatically manage updates
 	1. sudo dpkg-reconfigure --priority=low unattended-upgrades
 
 
 
 
-11. Install Apache mod.wsgi
+  10. Install Apache mod.wsgi
 1. sudo apt-get install apache2
 2. sudo apt-get install libapache2-mod-wsgi python-dev
 3. sudo a2enmod wsgi
@@ -120,14 +114,14 @@ https://help.ubuntu.com/community/UFW
 Remove message"Could not reliably determine the servers's fully qualified domain name" after restart Source: http://askubuntu.com/questions/256013/apache-error-could-not-reliably-determine-the-servers-fully-qualified-domain-n
 
 
-12.	 Create an empty Apache config file with the hostname:
+ 11.	 Create an empty Apache config file with the hostname:
 
 1. echo "ServerName HOSTNAME" | sudo tee /etc/apache2/conf-available/fqdn.conf
 2.	Enable the new config file
 3.	Sudo a2enconf fqdn
 
 
-        12. Setup the apache/flask application
+ 12. Setup the apache/flask application
 https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps
 
 1.	Move to the /var/www directory
@@ -156,7 +150,7 @@ if __name__ == "__main__":
 
 16.	save and exit
 
-23.	Install Flask and the virtual environment
+13. Install Flask and the virtual environment
 1.	Install pip installer:
 sudo apt-get install python-pip
 2.	Install virtualenv:
@@ -177,7 +171,7 @@ python __init__.py
 10.	Deactivate
 
 
-24.	Configure and enable the virtual host
+14.	Configure and enable the virtual host
 
 1.	create the apache file
 2.	sudo nano /etc/apache2/sites-available/catalog.conf
@@ -204,7 +198,7 @@ python __init__.py
 4.	Enable the virtual host
 5.	sudo a2ensite catalog
 
-25.	Create the .wsgi File and Restart Apache
+15.	Create the .wsgi File and Restart Apache
 
 1.	cd /var/www/catalog
 2.	sudo nano catalog.wsgi
@@ -222,7 +216,7 @@ application.secret_key = 'super_secret_key'
 5.	sudo service apache2 restart
 
 
-26.	Clone GitHub repository and make it web inaccessible
+16.	Clone GitHub repository and make it web inaccessible
 https://help.github.com/articles/set-up-git/#platform-linux
 1.	Install git
 2.	sudo apt-get install git
@@ -244,7 +238,7 @@ https://help.github.com/articles/set-up-git/#platform-linux
 
 
 
-27.	Install application dependencies into the virtual environment
+17.	Install application dependencies into the virtual environment
 1.	Activate virtual environment
 2.	source venv/bin/activate
 3.	Install application dependencies
@@ -257,7 +251,7 @@ https://help.github.com/articles/set-up-git/#platform-linux
 10.	sudo pip install dicttoxml
 
 
-28.	Install and configure PostgreSQL
+18.	Install and configure PostgreSQL
 https://www.digitalocean.com/community/tutorials/how-to-secure-postgresql-on-an-ubuntu-vps
 1.	sudo apt-get install postgresql
 2.	Check if no remote connections are allowed sudo vim /etc/postgresql/9.3/main/pg_hba.conf
@@ -283,7 +277,7 @@ https://www.digitalocean.com/community/tutorials/how-to-secure-postgresql-on-an-
 22.	Create the database schema
 23.	Python database_setup.py
 
-29.	Working with OAUTH
+19.	Working with OAUTH
 1.	Open http://www.hcidata.info/host2ip.cgi to get your aws public host name
 2.	Open the catalog.conf file
 3.	sudo nano /etc/apache2/sites-available/catalog.conf
